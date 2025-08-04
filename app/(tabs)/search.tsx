@@ -11,6 +11,8 @@ import CartButton from "@/components/CartButton";
 import cn from "clsx";
 import MenuCard from "@/components/MenuCard";
 import {MenuItem} from "@/type";
+import SearchBar from "@/components/Searchbar";
+import Filter from "@/components/filter";
 
 const Search = () => {
     const {category, query} = useLocalSearchParams<{query: string; category: string}>()
@@ -19,7 +21,7 @@ const Search = () => {
         params: {
             category,
             query,
-            limit: 6,
+            limit: 12,
         }
     });
 
@@ -59,8 +61,9 @@ const Search = () => {
 
                             <CartButton/>
                         </View>
-                        <Text>Search Input</Text>
+                      <SearchBar/>
 
+                        <Filter categories={categories!}/>
                         <Text>Filter</Text>
                     </View>
                 )}

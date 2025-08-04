@@ -78,23 +78,29 @@ export const getCurrentUser= async () => {
     }
 }
 
-export const  getMenu=async ({ category, query }): GetMenuParams =>{
+export const getMenu = async ({ category, query }: GetMenuParams) => {
     try {
         const queries: string[] = [];
 
-        if(category) queries.push(Query.equal('category', category));
-        if(query) queries.push(Query.name('name', query));
+        if (category) queries.push(Query.equal('category', category));
+        if (query) queries.push(Query.search('name', query)); // ✅ Correct method
 
-        const menus = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.menuCollectionId, queries);
-        return menus.documents
-    }catch (e) {
+        const menus = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.menuCollectionId,
+            queries
+        );
+        return menus.documents;
+    } catch (e) {
         throw new Error(e as string);
     }
-}
+};
+
 
 export const getCategories = async () =>{
     try {
         const categories = await databases.listDocuments(appwriteConfig.databaseId, appwriteConfig.categoriesCollectionId);
+        return categories.documents ;
     } catch (e) {
         throw new Error(e as string);
     }
